@@ -1,0 +1,120 @@
+<div class="container">
+  <button class="btn" (click)="popAdd(1)">
+    <img src="../assets/plus.png" alt="PLUS" width="25px" />
+  </button>
+  <div class="textCenter mb-3" *ngFor="let x of notes">
+    <div
+      class="textCenter mb-3"
+      style="
+        border-style: solid;
+        border-width: medium;
+        border-radius: 25px;
+        border-color: rgb(255, 182, 193);
+      "
+      *ngIf="x.show == true"
+    >
+      <div class="row center">
+        <div class="col-lg-4 mt-2">{{ x.createdDateString }}</div>
+        <div class="col-lg-4 mb-2 mt-2 bold">
+          {{ x.title }}
+        </div>
+        <button class="col-lg-2 btn" (click)="popAdd(x)">Edit</button
+        ><button class="col-lg-2 btn" (click)="deleteNote(x)">Delete</button>
+        <div
+          [ngStyle]="{
+            'text-decoration': x.task === false ? 'line-through' : ''
+          }"
+        >
+          {{ x.description }}
+        </div>
+        <div class="center mt-2 mb-2">
+          <button
+            (click)="toggleDone(x)"
+            *ngIf="x.task == true"
+            class="center col-lg-3 btn btn-outline-primary"
+          >
+            Mark as Done
+          </button>
+        </div>
+        <div class="center">
+          <button
+            (click)="toggleDone(x)"
+            *ngIf="x.task == false"
+            class="center mb-2 col-lg-3 btn btn-outline-danger"
+          >
+            Mark as Undone
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #manageNote>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Manage Note</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm.value)">
+    <div class="modal-body">
+      <input name="id" [ngModel]="targetNote.noteID" hidden />
+
+      <div class="row col-12 form-group">
+        <label>Title:</label>
+        <input
+          type="text"
+          class="form-control"
+          name="title"
+          [(ngModel)]="targetNote.title"
+        />
+      </div>
+
+      <div class="row col-12 form-group">
+        <label>Description:</label>
+        <input
+          type="text"
+          class="form-control"
+          name="description"
+          [(ngModel)]="targetNote.description"
+        />
+      </div>
+      <div class="row col-12 form-group">
+        <label for="task">
+          <input
+            type="checkbox"
+            id="task"
+            name="task"
+            value="yes"
+            [(ngModel)]="targetNote.task"
+          />
+          Is it a task?
+        </label>
+      </div>
+      <!-- <div class="row col-12 form-group">
+        <label for="accept">
+   <input type="checkbox" id="accept" name="accept" value="yes">  Accept 
+</label>
+        <label>Is it a task?</label>
+        <input
+          type="text"
+          class="form-control"
+          name="quanity"
+          [ngModel]="targetNote.description"
+        />
+      </div> -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-danger" type="reset" (click)="onClose()">
+        Close
+      </button>
+    </div>
+  </form>
+</ng-template>
