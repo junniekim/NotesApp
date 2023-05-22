@@ -1,7 +1,9 @@
 <div class="container">
+  <!-- Button for adding a note -->
   <button class="btn" (click)="popAdd(1)">
     <img src="../assets/plus.png" alt="PLUS" width="25px" />
   </button>
+  <!-- display all  as long as it's not deleted -->
   <div class="textCenter mb-3" *ngFor="let x of notes">
     <div
       class="textCenter mb-3"
@@ -18,8 +20,10 @@
         <div class="col-lg-4 mb-2 mt-2 bold">
           {{ x.title }}
         </div>
-        <button class="col-lg-2 btn" (click)="popAdd(x)">Edit</button
-        ><button class="col-lg-2 btn" (click)="deleteNote(x)">Delete</button>
+        <button class="col-lg-2 col-6 btn" (click)="popAdd(x)">Edit</button
+        ><button class="col-lg-2 col-6 btn" (click)="deleteNote(x)">
+          Delete
+        </button>
         <div
           [ngStyle]="{
             'text-decoration': x.task === false ? 'line-through' : ''

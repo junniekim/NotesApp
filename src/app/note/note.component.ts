@@ -42,7 +42,7 @@ export class NoteComponent {
   onSubmit(value: any): void {
     this.modalRef?.hide();
 
-    //map instead of pushing
+    //find instead of pushing
     let s = this.notes.find((x) => x.noteID == this.targetNote.noteID);
     if (s == null) {
       if (value.task == true) {
