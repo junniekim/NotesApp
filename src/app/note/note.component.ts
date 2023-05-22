@@ -46,7 +46,9 @@ export class NoteComponent {
     let s = this.notes.find((x) => x.noteID == this.targetNote.noteID);
     if (s == null) {
       if (value.task == true) {
-        this.targetNote.task = true;
+        this.targetNote.task = value.task;
+      } else {
+        this.targetNote.task = undefined;
       }
       this.targetNote.noteID = this.initialID;
       this.initialID++;
@@ -58,6 +60,12 @@ export class NoteComponent {
       this.notes.push(this.targetNote);
       this.targetNote = {} as Note;
     } else {
+      if (value.task == false) {
+        console.log(value);
+        s.task = undefined;
+      } else if (value.task == true) {
+        s.task = true;
+      }
       s.title = value.title;
       s.description = value.description;
     }
